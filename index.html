@@ -1,180 +1,230 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Certificate Vault</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6fb;
-            color: #172033;
-        }
-
-        header {
-            background: #101b3f;
-            color: white;
-            padding: 25px 8%;
-        }
-
-        header h1 {
-            font-size: 28px;
-        }
-
-        header p {
-            margin-top: 8px;
-            color: #cbd5f5;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 35px auto;
-            padding: 0 20px;
-        }
-
-        .welcome {
-            background: linear-gradient(135deg, #172554, #3658b5);
-            color: white;
-            padding: 35px;
-            border-radius: 16px;
-            margin-bottom: 30px;
-        }
-
-        .welcome h2 {
-            font-size: 30px;
-            margin-bottom: 12px;
-        }
-
-        .welcome p {
-            line-height: 1.6;
-        }
-
-        .section-title {
-            margin: 30px 0 18px;
-            font-size: 22px;
-        }
-
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 18px;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px #00000008;
-            border: 1px solid #e6eaf2;
-        }
-
-        .card .icon {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        .card h3 {
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            color: #647084;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .notice {
-            background: #fff7df;
-            color: #725515;
-            padding: 16px;
-            border-radius: 10px;
-            margin-top: 25px;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: #647084;
-            font-size: 13px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Certificate Vault</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6fb;color:#172033}
+header{background:#172554;color:white;padding:24px}
+header h1{margin:0;font-size:25px}
+header p{color:#cbd5e1}
+main{max-width:1000px;margin:25px auto;padding:16px}
+.card{background:white;padding:22px;border-radius:14px;margin-bottom:20px;box-shadow:0 3px 15px #0000000a}
+h2{margin-top:0}
+input,select,button{width:100%;padding:12px;margin:7px 0;border:1px solid #cbd5e1;border-radius:8px;font-size:15px}
+button{background:#2563eb;color:white;border:0;cursor:pointer;font-weight:bold}
+button:hover{background:#1d4ed8}
+.secondary{background:#475569}
+.hidden{display:none}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.certificate{border:1px solid #e2e8f0;border-radius:10px;padding:15px;margin-top:12px}
+small{color:#64748b}
+#message{white-space:pre-wrap;color:#b91c1c}
+@media(max-width:600px){.row{grid-template-columns:1fr}main{padding:10px}}
+</style>
 </head>
-
 <body>
-
 <header>
-    <h1>🎓 Certificate Vault</h1>
-    <p>Your achievements. One secure place.</p>
+<h1>🔐 My Certificate Vault</h1>
+<p>One secure place for your achievements and certificates.</p>
 </header>
 
-<main class="container">
+<main>
+<section class="card" id="authCard">
+<h2>Welcome</h2>
+<p>Sign in to access your personal certificate collection.</p>
+<input id="email" type="email" placeholder="Email address" autocomplete="username">
+<input id="password" type="password" placeholder="Password" autocomplete="current-password">
+<button id="loginBtn">Sign In</button>
+<p id="message"></p>
+<small>Use the account you created in Supabase.</small>
+</section>
 
-    <section class="welcome">
-        <h2>Welcome to Your Vault 👋</h2>
-        <p>
-            Keep your academic achievements, professional certifications,
-            internships, and skill development records organized in one place.
-        </p>
-    </section>
+<section id="app" class="hidden">
+<div class="card">
+<h2>Your Dashboard</h2>
+<p id="welcome"></p>
+<button id="logoutBtn" class="secondary">Sign Out</button>
+</div>
 
-    <h2 class="section-title">My Certificate Categories</h2>
+<div class="card">
+<h2>➕ Add a Certificate</h2>
+<form id="uploadForm">
+<input id="title" required placeholder="Certificate title">
+<div class="row">
+<select id="category" required>
+<option value="">Select category</option>
+<option>MBA</option>
+<option>AI</option>
+<option>Internship</option>
+<option>Cybersecurity</option>
+<option>Other</option>
+</select>
+<input id="issuer" placeholder="Issued by">
+</div>
+<label>Issue date</label>
+<input id="issueDate" type="date">
+<label>Choose certificate file (PDF, JPG, PNG)</label>
+<input id="file" type="file" accept=".pdf,.jpg,.jpeg,.png" required>
+<button type="submit">Upload Certificate</button>
+<p id="uploadMessage"></p>
+</form>
+</div>
 
-    <section class="categories">
-
-        <article class="card">
-            <div class="icon">🎓</div>
-            <h3>MBA & Academics</h3>
-            <p>Organize your MBA certificates, academic records, and course achievements.</p>
-        </article>
-
-        <article class="card">
-            <div class="icon">🤖</div>
-            <h3>Artificial Intelligence</h3>
-            <p>Keep your AI, machine learning, and technology certifications together.</p>
-        </article>
-
-        <article class="card">
-            <div class="icon">💼</div>
-            <h3>Internships</h3>
-            <p>Organize internship certificates, training records, and work experience documents.</p>
-        </article>
-
-        <article class="card">
-            <div class="icon">🛡️</div>
-            <h3>Cybersecurity</h3>
-            <p>Keep your cybersecurity courses, badges, and professional credentials organized.</p>
-        </article>
-
-        <article class="card">
-            <div class="icon">📚</div>
-            <h3>Other Certificates</h3>
-            <p>Store your other courses, workshops, and personal achievements.</p>
-        </article>
-
-    </section>
-
-    <div class="notice">
-        <strong>Setup in progress:</strong>
-        This is the first version of your website. Certificate uploads,
-        private storage, login, search, and downloads have not been connected yet.
-        Do not upload sensitive certificates to this page.
-    </div>
-
+<div class="card">
+<h2>📁 My Certificates</h2>
+<input id="search" placeholder="Search certificates...">
+<select id="filter">
+<option value="">All categories</option>
+<option>MBA</option><option>AI</option><option>Internship</option>
+<option>Cybersecurity</option><option>Other</option>
+</select>
+<div id="certificates"></div>
+</div>
+</section>
 </main>
 
-<footer>
-    My Certificate Vault · Built for your achievements
-</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://gjwzddvqaarsnepuzfpi.supabase.co/rest/v1/";
+const SUPABASE_KEY = "sb_publishable_xc3yB5FQm80H04r2l3qjUg_0g7lzL2U";
 
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let currentUser = null;
+let allCertificates = [];
+
+const $ = id => document.getElementById(id);
+function message(id,text){$(id).textContent=text;}
+
+$("loginBtn").addEventListener("click", async () => {
+  message("message","");
+  const email=$("email").value.trim();
+  const password=$("password").value;
+  if(!email || !password){message("message","Enter your email and password.");return;}
+  const {data,error}=await client.auth.signInWithPassword({email,password});
+  if(error){message("message",error.message);return;}
+  currentUser=data.user;
+  await showApp();
+});
+
+async function showApp(){
+  const {data}=await client.auth.getUser();
+  currentUser=data.user;
+  if(!currentUser)return;
+  $("authCard").classList.add("hidden");
+  $("app").classList.remove("hidden");
+  $("welcome").textContent="Signed in as "+currentUser.email;
+  await loadCertificates();
+}
+
+$("logoutBtn").addEventListener("click",async()=>{
+  await client.auth.signOut();
+  currentUser=null;
+  $("app").classList.add("hidden");
+  $("authCard").classList.remove("hidden");
+  $("password").value="";
+});
+
+$("uploadForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  if(!currentUser){message("uploadMessage","Please sign in first.");return;}
+  const file=$("file").files[0];
+  if(!file)return;
+  if(file.size>10*1024*1024){message("uploadMessage","Please choose a file smaller than 10 MB.");return;}
+  const allowed=["application/pdf","image/jpeg","image/png"];
+  if(!allowed.includes(file.type)){message("uploadMessage","Only PDF, JPG, and PNG files are allowed.");return;}
+
+  message("uploadMessage","Uploading...");
+  const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+  const path=currentUser.id+"/"+crypto.randomUUID()+"-"+safeName;
+
+  const {error:storageError}=await client.storage.from("certificates").upload(path,file,{
+    contentType:file.type,
+    upsert:false
+  });
+  if(storageError){message("uploadMessage","File upload failed: "+storageError.message);return;}
+
+  const record={
+    user_id:currentUser.id,
+    title:$("title").value.trim(),
+    category:$("category").value,
+    issuer:$("issuer").value.trim()||null,
+    issue_date:$("issueDate").value||null,
+    certificate_url:path
+  };
+
+  const {error:dbError}=await client.from("certificates").insert(record);
+  if(dbError){
+    await client.storage.from("certificates").remove([path]);
+    message("uploadMessage","Could not save certificate details: "+dbError.message);
+    return;
+  }
+
+  $("uploadForm").reset();
+  message("uploadMessage","Certificate uploaded successfully!");
+  await loadCertificates();
+});
+
+async function loadCertificates(){
+  const {data,error}=await client.from("certificates")
+    .select("*").eq("user_id",currentUser.id).order("created_at",{ascending:false});
+  if(error){$("certificates").textContent="Could not load certificates: "+error.message;return;}
+  allCertificates=data||[];
+  renderCertificates();
+}
+
+function renderCertificates(){
+  const query=$("search").value.toLowerCase();
+  const category=$("filter").value;
+  const items=allCertificates.filter(c=>
+    (c.title+" "+(c.issuer||"")+" "+c.category).toLowerCase().includes(query) &&
+    (!category||c.category===category)
+  );
+  const container=$("certificates");
+  container.replaceChildren();
+  if(!items.length){container.textContent="No certificates found. Upload your first certificate above.";return;}
+
+  items.forEach(c=>{
+    const box=document.createElement("div");
+    box.className="certificate";
+    const title=document.createElement("h3");
+    title.textContent=c.title;
+    const details=document.createElement("p");
+    details.textContent=c.category+" · "+(c.issuer||"Issuer not specified")+
+      (c.issue_date?" · "+c.issue_date:"");
+    const download=document.createElement("button");
+    download.textContent="View / Download";
+    download.addEventListener("click",async()=>{
+      const {data,error}=await client.storage.from("certificates")
+        .createSignedUrl(c.certificate_url,60);
+      if(error){alert("Unable to open file: "+error.message);return;}
+      window.open(data.signedUrl,"_blank","noopener,noreferrer");
+    });
+    const del=document.createElement("button");
+    del.textContent="Delete Certificate";
+    del.className="secondary";
+    del.addEventListener("click",async()=>{
+      if(!confirm("Delete this certificate permanently?"))return;
+      const {error:fileError}=await client.storage.from("certificates").remove([c.certificate_url]);
+      if(fileError){alert("Could not delete file: "+fileError.message);return;}
+      const {error:rowError}=await client.from("certificates").delete().eq("id",c.id);
+      if(rowError){alert("File deleted, but record removal failed: "+rowError.message);return;}
+      await loadCertificates();
+    });
+    box.append(title,details,download,del);
+    container.append(box);
+  });
+}
+
+$("search").addEventListener("input",renderCertificates);
+$("filter").addEventListener("change",renderCertificates);
+
+(async()=>{
+  const {data}=await client.auth.getSession();
+  if(data.session)await showApp();
+})();
+</script>
 </body>
 </html>
